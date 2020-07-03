@@ -1,4 +1,6 @@
 import { FunctionComponent, useState, useEffect } from 'react'
+import FontFaceObserver from 'fontfaceobserver'
+import Head from 'next/head'
 import fitty from 'fitty'
 
 import {
@@ -17,9 +19,9 @@ export interface TimerProps {
 
 const Timer: FunctionComponent<TimerProps> = ({
   duration = '10',
-  color = '222222',
-  font = 'Signika',
-  weight = '600',
+  color = '222',
+  font,
+  weight = '400',
   shadow = 'none'
 }) => {
   let interval: number
@@ -53,37 +55,58 @@ const Timer: FunctionComponent<TimerProps> = ({
 
     fittyTimer.freeze()
 
-    // @ts-ignore
-    const myFittyElement = fittyTimer.element
-
-    const init = () => {
+    const fitText = () => {
       fittyTimer.unfreeze()
       fittyTimer.fit()
-
-      calcTimeString()
-
-      interval = window.setInterval(() => {
-        calcTimeString()
-      }, 1000)
     }
 
-    myFittyElement.addEventListener('fit', function freezeText() {
-      setShowText(true)
-      fittyTimer.freeze()
-      myFittyElement.removeEventListener('fit', freezeText, false)
-    })
+    // We need to wait for the font to load before running 'fitty'
+    if (font) {
+      const fontFace = new FontFaceObserver(font)
 
-    timeout = window.setTimeout(init, 200)
+      const init = () => {
+        timeout = window.setTimeout(startTimer, 300)
+      }
+
+      // Check font has loaded and, either way, start timer
+      fontFace.load('01234', 3000).then(init, init)
+
+      // @ts-ignore
+      const myFittyElement = fittyTimer.element
+
+      const startTimer = () => {
+        calcTimeString()
+        fitText()
+
+        interval = window.setInterval(() => {
+          calcTimeString()
+        }, 1000)
+      }
+
+      myFittyElement.addEventListener('fit', function freezeText() {
+        setShowText(true)
+        fittyTimer.freeze()
+        myFittyElement.removeEventListener('fit', freezeText, false)
+      })
+    }
 
     return () => {
       clearInterval(interval)
       clearTimeout(timeout)
       fittyTimer.unsubscribe()
     }
-  }, [parsedDuration])
+  }, [parsedDuration, font])
 
   return (
     <>
+      <Head>
+        {font && weight && (
+          <link
+            href={`https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=0:123456789&display=swap`}
+            rel="stylesheet"
+          />
+        )}
+      </Head>
       <div className="timer">{text}</div>
       <style jsx>{`
         .timer {

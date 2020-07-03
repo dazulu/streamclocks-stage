@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import Head from 'next/head'
 
 import Timer, { TimerProps } from '../components/timer'
 
@@ -9,14 +8,6 @@ const Countdown = () => {
 
   return (
     <div className="container">
-      <Head>
-        {font && weight && (
-          <link
-            href={`https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=0:123456789&display=swap`}
-            rel="stylesheet"
-          />
-        )}
-      </Head>
       <Timer
         color={color}
         font={font}
@@ -30,6 +21,7 @@ const Countdown = () => {
           align-items: center;
           background: rgba(0, 0, 0, 0);
           height: 100vh;
+          width: 90vw;
           text-align: left;
         }
       `}</style>

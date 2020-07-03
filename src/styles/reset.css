@@ -7,10 +7,10 @@
 
 /* Set core body defaults */
 body {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   margin: 0;
-  scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
 }
 
