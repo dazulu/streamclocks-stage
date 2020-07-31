@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Streamclocks
+This is a Next.js, TypeScript based project used to parse and display a countdown timer for use as a web source in streaming software such as Streamlabs OBS. Via another website/repo, users are given a URL like below after customising their timer (this is a **work in progress** project). This URL is added as the brower source and users can then scale and move around the transparent background timer on their stream.
+
+Example URL: https://stage.streamclocks.com/countdown?font=Signika&weight=400&color=000&duration=10
+
+The display timer itself is a separate repo and deployment pipeline for stability and uptime.
+
 ## Getting Started
 
 First, run the development server:
