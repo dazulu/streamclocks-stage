@@ -11,9 +11,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     // Initialize Fathom when the app loads
-    Fathom.load('LMQLSTWZ', {
-      includedDomains: ['streamclocks.com']
-    })
+    Fathom.load('OPMIPLIC')
 
     function onRouteChangeComplete() {
       Fathom.trackPageview()
