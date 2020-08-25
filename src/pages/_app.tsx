@@ -11,7 +11,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     // Initialize Fathom when the app loads
-    Fathom.load('OPMIPLIC')
+    Fathom.load('OPMIPLIC', { url: 'https://bison.streamclocks.com/script.js' })
 
     function onRouteChangeComplete() {
       Fathom.trackPageview()
