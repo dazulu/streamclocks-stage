@@ -1,11 +1,31 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
+import * as Fathom from 'fathom-client'
 
 import '../styles/reset.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
+
+  useEffect(() => {
+    // Initialize Fathom when the app loads
+    Fathom.load('LMQLSTWZ', {
+      includedDomains: ['streamclocks.com']
+    })
+
+    function onRouteChangeComplete() {
+      Fathom.trackPageview()
+    }
+    // Record a pageview when route changes
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+
+    // Unassign event listener
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    }
+  }, [])
 
   return (
     <>

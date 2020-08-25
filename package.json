@@ -8,6 +8,7 @@
     "start": "serve out"
   },
   "dependencies": {
+    "fathom-client": "^3.0.0",
     "fitty": "^2.3.0",
     "fontfaceobserver": "^2.1.0",
     "next": "9.4.4",
